@@ -1,10 +1,7 @@
-package com.company.integer;
+package com.company.integer
 
 
-public class ReverseInteger {
-
-    public static void main(String[] args) {
-
+    fun main() {
         /** Given a integer Input - 4321 Output - 1234
          * `reverseInteger` takes an integer and returns it with its digits in reverse order.
          * It works by repeatedly extracting the last digit of the input using the modulo operator (`% 10`),
@@ -14,23 +11,21 @@ public class ReverseInteger {
          */
 
 
-        System.out.println(reverseInteger(4321));
+        println(reverseInteger(4321)) // Expected: 1234
 
-        System.out.println(reverseInteger(1000)); // Expected: 1
+        println(reverseInteger(1000)) // Expected: 1
 
-        System.out.println(reverseInteger(7)); // Expected: 7
-
+        println(reverseInteger(7)) // Expected: 7
     }
 
-    public static int reverseInteger(int number) {
-        int reverse = 0;
+    fun reverseInteger(number: Int): Int {
+        var number = number
+        var reverse = 0
         while (number != 0) {
-            reverse = reverse * 10;
-            reverse = reverse + (number % 10);
-            number = number / 10;
+            reverse = reverse * 10
+            reverse = reverse + (number % 10)
+            number = number / 10
         }
 
-        return reverse;
-
+        return reverse
     }
-}
