@@ -1,28 +1,26 @@
-package com.company.linkedin;
+package com.company.linkedin
 
-import java.util.*;
+import java.util.*
 
-public class BracketValidator {
-
-    public static void main(String[] args) {
+    fun main(args: Array<String>) {
         // Use case 1: valid — all brackets properly matched and nested
-        System.out.println(isValid("({[]})"));   // true
+        println(isValid("({[]})")) // true
 
         // Use case 2: invalid — mismatched closer
-        System.out.println(isValid("({[})"));    // false
+        println(isValid("({[})")) // false
 
         // Use case 3: invalid — closer with no opener (empty stack)
-        System.out.println(isValid("]hello"));   // false
+        println(isValid("]hello")) // false
     }
     /**
      * Solution O(n) Time,Space
      * We iterate through our string, making sure that:
-
+     *
      * each closer corresponds to the most recently seen, unclosed opener
      * every opener and closer is in a pair
      * We use a stack ↴ to keep track of the most recently seen, unclosed opener.
      * And if the stack is ever empty when we come to a closer, we know that closer doesn't have an opener.
-
+     *
      * So as we iterate:
      * If we see an opener, we push it onto the stack.
      * If we see a closer, we check to see if it is the closer for the opener at the top of the stack.
@@ -39,38 +37,36 @@ public class BracketValidator {
      *
      * All three use cases (`"({[]})"` → true, `"({[})"` → false, `"]hello"` → false) were also walked through step by
      * step.
-     * */
-        /** Time : O(n) , Space : O(n)*/
-    public static boolean isValid(String code) {
-        Map<Character, Character> openersToClosers = new HashMap<>();
-        openersToClosers.put('(', ')');
-        openersToClosers.put('[', ']');
-        openersToClosers.put('{', '}');
+     */
+    /** Time : O(n) , Space : O(n) */
+    fun isValid(code: String): Boolean {
+        val openersToClosers: MutableMap<Char?, Char?> = HashMap<Char?, Char?>()
+        openersToClosers.put('(', ')')
+        openersToClosers.put('[', ']')
+        openersToClosers.put('{', '}')
 
-        Set<Character> openers = openersToClosers.keySet();
-        Set<Character> closers = new HashSet<>(openersToClosers.values());
+        val openers = openersToClosers.keys
+        val closers: MutableSet<Char?> = HashSet<Char?>(openersToClosers.values)
 
-        Deque<Character> openersStack = new ArrayDeque<>();
+        val openersStack: Deque<Char?> = ArrayDeque<Char?>()
 
-        for (int i = 0; i < code.length(); i++) {
-            char c = code.charAt(i);
+        for (i in 0..<code.length) {
+            val c = code.get(i)
             if (openers.contains(c)) {
-                openersStack.push(c);
+                openersStack.push(c)
             } else if (closers.contains(c)) {
                 if (openersStack.isEmpty()) {
-                    return false;
+                    return false
                 } else {
-                    char lastUnclosedOpener = openersStack.pop();
+                    val lastUnclosedOpener: Char = openersStack.pop()!!
                     // if this closer doesn't correspond to the most recently
                     // seen unclosed opener, short-circuit, returning false
-                    if (!openersToClosers.get(lastUnclosedOpener).equals(c)) {
-                        return false;
+                    if (openersToClosers.get(lastUnclosedOpener) != c) {
+                        return false
                     }
                 }
             }
         }
 
-        return openersStack.isEmpty();
-
+        return openersStack.isEmpty()
     }
-}
