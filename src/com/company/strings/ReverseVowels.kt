@@ -29,13 +29,16 @@ fun reverseVowels(s: String): String {
     var left = 0
     var right = chars.lastIndex
 
+    //moves left pointer
     while (left < right) {
         while (left < right && chars[left] !in vowels) {
             left++
         }
+        //moves right pointer
         while (left < right && chars[right] !in vowels) {
             right--
         }
+        //temp
         if (left < right) {
             val temp = chars[left]
             chars[left] = chars[right]
