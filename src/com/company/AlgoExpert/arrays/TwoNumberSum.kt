@@ -7,7 +7,8 @@ fun main() {
     //3,3,3,6,8,10,12,21,34
 
     println(twoNumberSum1(array, 20).contentToString())
-    println(twoNumberSum2(array, 34).contentToString())
+    println(twoNumberSum2(array, 20).contentToString())
+    println(twoNumberSum_Spotify(array, 20).contentToString())
     println(twoNumberSum3(array, 21).contentToString())
 }
 
@@ -18,15 +19,55 @@ fun main() {
  * Space: O(n) — stores numbers in the HashMap
  */
 fun twoNumberSum2(array: IntArray, target: Int): IntArray {
+    // Create a HashMap to store numbers we've seen (key = number, value = true)
     val myHash = HashMap<Int, Boolean>()
+    
+    // Iterate through each number in the array
     for (num in array) {
+        // Calculate what number would pair with current number to reach target
         val match = target - num
+        
+        // Check if the complement number has already been seen
         if (myHash.containsKey(match)) {
+            // Found a pair! Return both numbers immediately
             return intArrayOf(match, num)
         } else {
+            // Haven't found a match yet, so store current number for future lookups
             myHash[num] = true
         }
     }
+    
+    // No pair found that sums to target, return empty array
+    return intArrayOf()
+}
+
+/**
+ * `twoNumberSum2_1` — HashMap (Returns Indices)
+ * Similar to twoNumberSum2, but returns the indices of the two numbers instead of the numbers themselves.
+ * Time: O(n)
+ * Space: O(n) — stores numbers and their indices in the HashMap
+ */
+fun twoNumberSum_Spotify(array: IntArray, target: Int): IntArray {
+    // Create a HashMap to store numbers we've seen with their index (key = number, value = index)
+    val myHash = HashMap<Int, Int>()
+    
+    // Iterate through each number in the array with its index
+    for (i in array.indices) {
+        val num = array[i]
+        // Calculate what number would pair with current number to reach target
+        val match = target - num
+        
+        // Check if the complement number has already been seen
+        if (myHash.containsKey(match)) {
+            // Found a pair! Return the indices of both numbers
+            return intArrayOf(myHash[match]!!, i)
+        } else {
+            // Haven't found a match yet, so store current number with its index for future lookups
+            myHash[num] = i
+        }
+    }
+    
+    // No pair found that sums to target, return empty array
     return intArrayOf()
 }
 
